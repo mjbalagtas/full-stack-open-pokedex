@@ -1,14 +1,21 @@
 name: Hello World
 
 on:
-    push:
-      branches:
-        - master
+  push:
+    branches:
+      - master
 
 jobs:
-    print_hello_world:
-      runs-on: ubuntu-20.04
-      steps:
-        - name: print hello world
-          run: | 
-            echo "hello world"
+  print_hello_world:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: print hello world
+        run: | 
+          echo "hello world"
+      - name: Date now
+        run: |
+          date
+      - name: current directory content
+        run: |
+          ls -l
+      
