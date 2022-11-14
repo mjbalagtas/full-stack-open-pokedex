@@ -9,7 +9,7 @@
     "test": "jest",
     "eslint": "eslint './**/*.{js,jsx}'",
     "eslint:fix": "eslint './**/*.{js,jsx}' --fix",
-    "build": "export SET NODE_OPTIONS=--openssl-legacy-provider && webpack --mode production && unset NODE_OPTIONS",
+    "build": "webpack --mode production",
     "test:e2e": "cypress open"
   },
   "repository": {
