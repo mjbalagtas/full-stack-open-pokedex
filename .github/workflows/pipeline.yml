@@ -13,5 +13,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '16'
-      - run: npm install
-      - run: ls -l
+      - name: npm install
+        run: npm install
+      - name: current dir
+        run: ls -l
