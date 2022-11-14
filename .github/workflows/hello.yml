@@ -10,4 +10,5 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: print hello world
-        run: echo "hello world"
+        run: 
+          - echo "hello world"
