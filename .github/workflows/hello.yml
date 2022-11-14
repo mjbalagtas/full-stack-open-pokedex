@@ -7,7 +7,7 @@ on:
 
 jobs:
     print_hello_world
-    runs-on: ubuntu-20.04
-    steps:
-        - name: print hello world
-          run: | echo "hello world"
+        runs-on: ubuntu-20.04
+        steps:
+            - name: print hello world
+              run: | echo "hello world"
