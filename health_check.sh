@@ -1,5 +1,11 @@
 #!/bin/bash
 
-echo "hello from shell script - mark"
+OUTPUT=$(curl -L https://pokepedia.fly.dev/health)
 
-exit 0
+if [ "$OUTPUT" = "ok" ]; then
+    echo "Strings are equal."
+    exit 0
+else
+    echo "Strings are not equal."
+    exit 1
+fi
