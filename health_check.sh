@@ -1,10 +1,10 @@
 #!/bin/bash
 
-apt-get update && apt-get install curl -y
-
-OUTPUT=$(curl -L https://pokepedia.fly.dev/health)
-
-if [ "$OUTPUT" = "ok" ]; then
+npm run health:check > script_curl_test.log
+TEST=$(cat script_curl_test.log)
+CORRECT=$(cat script_curl_correct.log)
+wait
+if [[ "$TEST" = "$CORRECT" ]]; then
     echo "Strings are equal."
     exit 0
 else

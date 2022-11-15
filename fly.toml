@@ -1,15 +1,11 @@
-# fly.toml file generated for pokepedia on 2022-11-15T17:35:27+08:00
+# fly.toml file generated for pokepedia on 2022-11-16T00:38:01+08:00
 
 app = "pokepedia"
 kill_signal = "SIGINT"
 kill_timeout = 5
-processes = []
 
 [deploy]
-  release_command="npm run build"
-
-[processes]
-  app="node app.js"
+  release_command = "npm run build"
 
 [env]
   PORT = "8080"
@@ -17,6 +13,9 @@ processes = []
 [experimental]
   allowed_public_ports = []
   auto_rollback = true
+
+[processes]
+  app = "node app.js"
 
 [[services]]
   internal_port = 8080
@@ -27,6 +26,17 @@ processes = []
     soft_limit = 20
     type = "connections"
 
+  [[services.http_checks]]
+    grace_period = "5s"
+    interval = 10000
+    method = "get"
+    path = "/health"
+    protocol = "http"
+    restart_limit = 0
+    timeout = 2000
+    tls_skip_verify = false
+    [services.http_checks.headers]
+
   [[services.ports]]
     force_https = true
     handlers = ["http"]
@@ -36,26 +46,15 @@ processes = []
     handlers = ["tls", "http"]
     port = 443
 
+  [[services.script_checks]]
+    command = "./app/health_check.sh"
+    grace_period = "5s"
+    interval = 10000
+    restart_limit = 0
+    timeout = 1000
+
   [[services.tcp_checks]]
     grace_period = "1s"
     interval = "15s"
     restart_limit = 0
     timeout = "2s"
-
-  [[services.http_checks]]
-    interval = 10000
-    grace_period = "5s"
-    method = "get"
-    path = "/health"
-    protocol = "http"
-    restart_limit = 0
-    timeout = 2000
-    tls_skip_verify = false
-    [services.http_checks.headers]
-  
-  [[services.script_checks]]
-    command = "./app/health_check.sh"
-    grace_period = "5s"
-    timeout = 1000
-    interval = 10000
-    restart_limit = 0

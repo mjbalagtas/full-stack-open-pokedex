@@ -26,7 +26,6 @@ const App = () => {
 
   return (
     <>
-      <h1>Mark Balagtas - healthy</h1>
       <Router>
         <Switch>
           <Route exact path="/">

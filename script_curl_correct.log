@@ -1,0 +1,5 @@
+
+> fullstackopen-cicd@1.0.0 health:check
+> curl -L https://pokepedia.fly.dev/health
+
+ok
