@@ -25,8 +25,9 @@ const App = () => {
   }
 
   return (
+    <>
+    <h1>Mark Balagtas</h1>
     <Router>
-      <h1>MARK BALAGTAS</h1>
       <Switch>
         <Route exact path="/">
           <PokemonList pokemonList={pokemonList} />
@@ -39,6 +40,7 @@ const App = () => {
         }} />
       </Switch>
     </Router>
+    </>
   )
 }
 
