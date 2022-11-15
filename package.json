@@ -14,7 +14,7 @@
     "eslint:fix": "eslint './**/*.{js,jsx}' --fix",
     "build": "webpack --mode production",
     "test:e2e": "cypress open",
-    "health:check": "curl -L https://pokepedia.fly.dev/health"
+    "health:check": "curl -o health.ok https://pokepedia.fly.dev/health"
   },
   "repository": {
     "type": "git",

@@ -1,10 +1,9 @@
 #!/bin/bash
 
-npm run health:check > script_curl_test.log
-TEST=$(cat script_curl_test.log)
-CORRECT=$(cat script_curl_correct.log)
+npm run health:check
+TEST=$(cat health.ok)
 wait
-if [[ "$TEST" = "$CORRECT" ]]; then
+if [[ "$TEST" = "ok" ]]; then
     echo "Strings are equal."
     exit 0
 else
