@@ -26,6 +26,7 @@ const App = () => {
 
   return (
     <Router>
+      <h1>MARK BALAGTAS</h1>
       <Switch>
         <Route exact path="/">
           <PokemonList pokemonList={pokemonList} />
