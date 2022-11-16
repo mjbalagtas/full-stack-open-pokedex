@@ -1,6 +1,9 @@
 #!/bin/bash
 
-npm run health:check
+apt-get update && apt-get install curl -y
+cd app
+curl -o health.ok https://pokepedia.fly.dev
+
 TEST=$(cat health.ok)
 wait
 if [[ "$TEST" = "ok" ]]; then
