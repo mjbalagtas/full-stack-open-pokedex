@@ -1,15 +1,12 @@
 #!/bin/bash
-
 apt-get update && apt-get install curl -y
-cd app
-curl -o health.ok https://pokepedia.fly.dev
 
-TEST=$(cat health.ok)
-wait
-if [[ "$TEST" = "ok" ]]; then
-    echo "Strings are equal."
+TEST=$(curl -s localhost:8080/health)
+
+if [ "$TEST" = "ok" ]; then
+    echo "successful curl to /health"
     exit 0
-else
-    echo "Strings are not equal."
-    exit 1
 fi
+
+echo "FAILED to curl /health"
+exit 1
