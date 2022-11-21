@@ -35,9 +35,10 @@ jobs:
           wait-on: http://localhost:5000
       - name: deploy to internet
         uses: superfly/flyctl-actions/setup-flyctl@master
-      - if:
-          match: ${{ github.event_name == 'push' }}
-          block:
-              - run: flyctl deploy --remote-only
-      - return: ""
+        with:
+          - if:
+              match: ${{ github.event_name == 'push' }}
+              block:
+                  - run: flyctl deploy --remote-only
+          - return: ""
           
