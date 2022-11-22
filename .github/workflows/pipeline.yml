@@ -57,14 +57,7 @@ jobs:
           description: Commit broke the build
           details: ${{ github.event.commits[0].url }} by ${{ github.event.commits[0].committer.name }}
           text: BUILD FAILED
-      - name: Check the deployed service URL
-        uses: Jtalk/url-health-check-action@v3
-        with:
-          url: https://pokepedia.fly.dev/health
-          max-attempts: 7
-          retry-delay: 10s
-          retry-all: true
-          follow-redirect: true
+
   tag_release:
     if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ''), '#skip') }}
     needs: [simple_deployment_pipeline]
@@ -79,20 +72,15 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
 
-  a_test_job:
-    runs-on: ubuntu-20.04
+  health_check:
+    needs: [tag_release]
+    runs_on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
-      - name: github context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
-      - name: commits
-        env:
-          COMMITS: ${{ toJson(github.event.commits) }}
-        run: echo "$COMMITS"
-      - name: commit messages
-        env:
-          COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
-        run: echo "$COMMIT_MESSAGES"
+      - name: Check the deployed service URL
+        uses: Jtalk/url-health-check-action@v3
+        with:
+          url: https://pokepedia.fly.dev/health
+          max-attempts: 7
+          retry-delay: 10s
+          follow-redirect: true
 
