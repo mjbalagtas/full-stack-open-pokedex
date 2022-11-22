@@ -57,6 +57,8 @@ jobs:
           description: Commit broke the build
           details: ${{ github.event.commits[0].url }} by ${{ github.event.commits[0].committer.name }}
           text: BUILD FAILED
+      - name: install curl
+        run: apt-get update && apt-get install curl -y
       - name: Check the deployed service URL
         uses: Jtalk/url-health-check-action@v3
         with:
