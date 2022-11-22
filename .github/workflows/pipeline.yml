@@ -61,8 +61,10 @@ jobs:
         uses: jtalk/url-health-check-action@v3
         with:
           url: https://pokepedia.fly.dev | http://pokepedia.fly.dev
-          max-attempts: 3
-          retry-delay: 5s
+          max-attempts: 7
+          retry-delay: 10s
+          retry-all: true
+          follow-redirect: true
   tag_release:
     if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ''), '#skip') }}
     needs: [simple_deployment_pipeline]
