@@ -57,6 +57,12 @@ jobs:
           description: Commit broke the build
           details: ${{ github.event.commits[0].url }} by ${{ github.event.commits[0].committer.name }}
           text: BUILD FAILED
+      - name: Check the deployed service URL
+        uses: jtalk/url-health-check-action@v3
+        with:
+          url: https://pokepedia.fly.dev | http://pokepedia.fly.dev
+          max-attempts: 3
+          retry-delay: 5s
   tag_release:
     if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ''), '#skip') }}
     needs: [simple_deployment_pipeline]
