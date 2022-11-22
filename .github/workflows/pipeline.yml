@@ -65,7 +65,7 @@ jobs:
           details: ${{ github.event.commits[0].url }} by ${{ github.event.commits[0].committer.name }}
           text: BUILD FAILED
       - name: Bump version and push tag
-        uses: anothrNick/github-tag-action@eca2b69f9e2c24be7decccd0f15fdb1ea5906598
+        uses: anothrNick/github-tag-action@be61601e6c758192da360827035da616d7250eb3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
