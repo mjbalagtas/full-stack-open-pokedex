@@ -11,7 +11,7 @@ const PokemonList = ({ pokemonList }) => {
           >
             {name}
           </div>
-        </Link
+        </Link>
       ))}
     </div>
   )
