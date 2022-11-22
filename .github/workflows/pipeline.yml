@@ -38,9 +38,8 @@ jobs:
         if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ''), '#skip') }}
       - run: flyctl deploy --remote-only
         if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ''), '#skip') }}
-              - name: Test Success
+      - name: Success Build
         uses: rjstone/discord-webhook-notify@v1
-      -name: Success build
         if: success()
         with:
           severity: info
