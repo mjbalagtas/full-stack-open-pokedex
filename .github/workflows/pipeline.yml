@@ -68,5 +68,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: true
           DEFAULT_BUMP: patch
-          default_semvar_bump: ${DEFAULT_BUMP:-patch}
+          default_semvar_bump: patch
 
