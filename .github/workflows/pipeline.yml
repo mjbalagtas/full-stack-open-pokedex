@@ -45,7 +45,8 @@ jobs:
         with:
           severity: info
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-          details: to https://pokepedia.fly.dev by ${{ github.event.commits.*.author.name }}
+          description: DEPLOYED
+          details: to https://pokepedia.fly.dev by ${{ github.event.commits.*.committer.name }}
           text: A new version of pokedex deployed
       - name: Failed to build
         uses: rjstone/discord-webhook-notify@v1
@@ -53,8 +54,8 @@ jobs:
         with:
           severity: error
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-          description: Commit by mjbalagtas broke the build
-          details: ${{ github.event.commits.*.url }} by ${{ github.event.commits.*.author.name }}
+          description: Commit broke the build
+          details: ${{ github.event.commits.*.url }} by ${{ github.event.commits.*.committer.name }}
           text: BUILD FAILED
   tag_release:
     if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ''), '#skip') }}
