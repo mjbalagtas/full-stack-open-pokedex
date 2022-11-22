@@ -38,6 +38,25 @@ jobs:
         if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ''), '#skip') }}
       - run: flyctl deploy --remote-only
         if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ''), '#skip') }}
+              - name: Test Success
+        uses: rjstone/discord-webhook-notify@v1
+      -name: Success build
+        if: success()
+        with:
+          severity: info
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+          description: Commit by mjbalagtas broke the build
+          details: Commit by mjbalagtas broke the build
+          text: A new version of pokedex deployed
+      - name: Failed to build
+        uses: rjstone/discord-webhook-notify@v1
+        if: failure()
+        with:
+          severity: error
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+          description: Commit by mjbalagtas broke the build
+          details: Commit by mjbalagtas broke the build
+          text: BUILD FAILED
   tag_release:
     if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ''), '#skip') }}
     needs: [simple_deployment_pipeline]
