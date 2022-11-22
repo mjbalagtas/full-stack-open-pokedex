@@ -46,7 +46,7 @@ jobs:
           severity: info
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
           description: DEPLOYED
-          details: to https://pokepedia.fly.dev by ${{ github.event.commits.*.committer }}
+          details: to https://pokepedia.fly.dev by ${{ github.event.commits[0].committer.name }}
           text: A new version of pokedex deployed
       - name: Failed to build
         uses: rjstone/discord-webhook-notify@v1
