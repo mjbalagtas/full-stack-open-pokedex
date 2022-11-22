@@ -72,7 +72,8 @@ jobs:
         uses: anothrNick/github-tag-action@eca2b69f9e2c24be7decccd0f15fdb1ea5906598
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DEFAULT_BUMP: patch
+          DEFAULT_BUMP: none
+          CUSTOM_TAG: #patch
 
   health_check:
     needs: [tag_release]
