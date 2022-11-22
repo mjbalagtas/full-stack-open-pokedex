@@ -64,8 +64,7 @@ jobs:
           text: BUILD FAILED
       - name: Bump version and push tag
         uses: anothrNick/github-tag-action@eca2b69f9e2c24be7decccd0f15fdb1ea5906598
-        run: set -o pipefail
-        run: default_semvar_bump=${DEFAULT_BUMP:-patch}
+        run: export default_semvar_bump=${DEFAULT_BUMP:-patch}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: true
