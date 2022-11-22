@@ -55,7 +55,7 @@ jobs:
           severity: error
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
           description: Commit broke the build
-          details: ${{ github.event.commits.*.url }} by ${{ github.event.commits.*.committer.name }}
+          details: ${{ github.event.commits[0].url }} by ${{ github.event.commits[0].committer.name }}
           text: BUILD FAILED
   tag_release:
     if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ''), '#skip') }}
