@@ -33,22 +33,9 @@ jobs:
           build: npm run build
           start: npm run start-prod
           wait-on: http://localhost:5000
-
-
-  deployment_and_tag_release:
-    if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ''), '#skip') }}
-    needs: [simple_deployment_pipeline]
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: '0'
-      - name: deploy to internet
-        uses: superfly/flyctl-actions/setup-flyctl@master
-      - run: flyctl deploy --remote-only
       - name: Success Build
         uses: rjstone/discord-webhook-notify@v1
-        if: ${{ success() || cancelled() }}
+        if: ${{ success() }}
         with:
           severity: info
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
@@ -64,6 +51,28 @@ jobs:
           description: Commit broke the build
           details: ${{ github.event.commits[0].url }} by ${{ github.event.commits[0].committer.name }}
           text: BUILD FAILED
+      - name: Success build but do not deploy
+        uses: rjstone/discord-webhook-notify@v1
+        if: ${{ contains(join(github.event.commits.*.message, ''), '#skip') }}
+        with:
+          severity: info
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+          description: Skipped deployment
+          details: Build  success but do not deploy by ${{ github.event.commits[0].committer.name }}
+          text: SKIPPED DEPLOYMENT
+
+
+  deployment_and_tag_release:
+    if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ''), '#skip') }}
+    needs: [simple_deployment_pipeline]
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: '0'
+      - name: deploy to internet
+        uses: superfly/flyctl-actions/setup-flyctl@master
+      - run: flyctl deploy --remote-only
       - name: Bump version and push tag
         uses: anothrNick/github-tag-action@1ffbb2e04bd950cffea99066469cb16d69a7887e
         env:
