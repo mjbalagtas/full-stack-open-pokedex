@@ -35,7 +35,7 @@ jobs:
           wait-on: http://localhost:5000
       - name: Success Build
         uses: rjstone/discord-webhook-notify@v1
-        if: ${{ success() && contains(join(github.event.commits.*.message, ''), '#skip') }}
+        if: ${{ success() && !contains(join(github.event.commits.*.message, ''), '#skip') }}
         with:
           severity: info
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
